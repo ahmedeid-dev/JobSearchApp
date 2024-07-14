@@ -1,3 +1,5 @@
+
+//  template for email with otp for reset password 
 export const resetPasswordTemplate = (name, OTP) => {
 	return `
 	<!DOCTYPE html>

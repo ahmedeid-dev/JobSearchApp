@@ -2,21 +2,27 @@ import Application from '../../database/model/applicationCollection/application.
 import Company from './../../database/model/companyCollection/company.model.js';
 import Job from '../../database/model/jobCollection/job.model.js';
 import appError from '../../utils/appError.js';
+
+//  add company controller
 const addCompany = async (req, res, next) => {
     const company = await Company.insertMany(req.body)
     res.status(201).json({ message: "Company created successfully", company })
 }
+
+//  update company controller
 const updateCompany = async (req, res, next) => {
     const company = await Company.findOneAndUpdate
         ({ companyHr: req.body.companyHr }, req.body, { new: true })
     res.status(200).json({ message: "Company updated successfully", company })
 }
 
+//  delete company controller
 const deleteCompany = async (req, res, next) => {
     const company = await Company.findOneAndDelete({ companyHr: req.body.companyHr })
     res.status(200).json({ message: "Company deleted successfully", company })
 }
 
+//  get company controller
 const getCompany = async (req, res, next) => {
     const company = await Company.findById(req.params.id)
     const jobs = await Job.find({ addedBy: company._id });
@@ -24,21 +30,14 @@ const getCompany = async (req, res, next) => {
     res.status(200).json({ message: "Company fetched successfully", result })
 }
 
+//  get company controller
 const getCompanyByName = async (req, res, next) => {
     const company = await Company.findOne({ companyName: req.query.companyName })
         .populate("companyHR", "-password -expiredOTP")
     res.status(200).json({ message: "Company fetched successfully", company })
 }
 
-
-// const getAllApplications = async (req, res, next) => {
-//     const jobs = await Job.find({ _id: req.params.id })
-//         .populate("addedBy")
-//     const applications = await Application.find({ jobId: jobs[0]._id })
-//     res.status(200).json({ message: "applications fetched successfully", applications })
-// }
-
-
+//  get all applications
 const getAllApplications = async (req, res, next) => {
     // destructure job id from params
     const { jobId } = req.params
@@ -50,6 +49,8 @@ const getAllApplications = async (req, res, next) => {
     const applications = await Application.find({ jobId }).populate("user")
     res.status(200).json({ count: applications.length, applications });
 }
+
+//  export modules
 export {
     getAllApplications,
     getCompanyByName,

@@ -1,5 +1,6 @@
 import joi from "joi"
 
+// add company validation schema
 const addCompanyValidation = joi.object({
     companyName: joi
         .string()
@@ -53,6 +54,7 @@ const addCompanyValidation = joi.object({
 
 })
 
+// update company validation schema
 const updateCompanyValidation = joi.object({
     companyName: joi
         .string()
@@ -99,6 +101,7 @@ const updateCompanyValidation = joi.object({
 
 })
 
+// export company validation schemas
 export {
     addCompanyValidation,
     updateCompanyValidation

@@ -1,9 +1,10 @@
 import { CloudinaryStorage } from 'multer-storage-cloudinary';
-import { Router } from 'express';
-import multer from 'multer';
-const router = Router();
 import Application from '../models/Application';
 import cloudinary from '../config/cloudinary';
+import { Router } from 'express';
+import multer from 'multer';
+
+const router = Router();
 
 // Configure multer storage to use Cloudinary
 const storage = new CloudinaryStorage({
@@ -38,4 +39,5 @@ router.post('/apply', upload.single('userResume'), async (req, res) => {
     }
 });
 
+// Export the router
 export default router;

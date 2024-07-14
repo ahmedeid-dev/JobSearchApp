@@ -1,5 +1,6 @@
 import joi from 'joi';
 
+// add job validation schema
 const addJobValidation = joi.object({
     title: joi
         .string()
@@ -58,6 +59,8 @@ const addJobValidation = joi.object({
             "string.empty": "Added by is required",
         })
 })
+
+// update job validation schema
 const updateJobValidation = joi.object({
     title: joi
         .string()
@@ -115,6 +118,8 @@ const updateJobValidation = joi.object({
             "string.empty": "Id is required",
         })
 })
+
+// export job validation schemas
 export {
     addJobValidation,
     updateJobValidation

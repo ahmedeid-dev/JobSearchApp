@@ -1,5 +1,6 @@
 import { model, Schema, Types } from "mongoose";
 
+// schema for application collection
 const schema = Schema({
     jobId: {
         type: Types.ObjectId,
@@ -17,5 +18,8 @@ const schema = Schema({
     }
 })
 
+// model for application collection
 const Application = model("Application", schema);
+
+// exporting model
 export default Application

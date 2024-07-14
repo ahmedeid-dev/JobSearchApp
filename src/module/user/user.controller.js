@@ -1,15 +1,18 @@
 import User from "./../../database/model/userCollection/user.model.js";
-import jwt from "jsonwebtoken";
-import { compareSync, hashSync } from "bcrypt";
-import { sendEmailService } from "../../email/sendEmail.js";
 import { resetPasswordTemplate } from "../../email/emailHtml.js";
+import { sendEmailService } from "../../email/sendEmail.js";
+import { compareSync, hashSync } from "bcrypt";
+import jwt from "jsonwebtoken";
 
+// user signup 
 const signup = async (req, res, next) => {
     req.body.userName = `${req.body.firstName} ${req.body.lastName}`;
     const user = await User.create(req.body);
     user.password = undefined
     res.status(201).json({ message: "User created successfully", user });
 };
+
+// user signin
 const signin = async (req, res, next) => {
     const user = await User.findOneAndUpdate({
         $or: [
@@ -40,6 +43,7 @@ const signin = async (req, res, next) => {
     res.status(200).json({ message: "User signed in successfully", user, token });
 };
 
+// user update
 const updateUser = async (req, res, next) => {
     const data = await User.findById(req.user.id);
     const user = await User.findByIdAndUpdate(
@@ -62,12 +66,14 @@ const updateUser = async (req, res, next) => {
     res.status(200).json({ message: "User updated successfully", user })
 };
 
+// user delete
 const deleteUser = async (req, res, next) => {
     const user = await User.findByIdAndDelete(req.user.id)
     user.password = undefined
     res.status(200).json({ message: "User deleted successfully", user })
 };
 
+// get user
 const getUser = async (req, res, next) => {
     const user = await User.findById(req.user.id)
 
@@ -78,6 +84,7 @@ const getUser = async (req, res, next) => {
     res.status(200).json({ message: "User fetched successfully", user })
 };
 
+// update password
 const updatePassword = async (req, res, next) => {
     const user = await User.findByIdAndUpdate(
         req.user.id,
@@ -93,13 +100,14 @@ const updatePassword = async (req, res, next) => {
     res.status(200).json({ message: "password updated successfully", user })
 };
 
-
+// get all accounts
 const getAllAccounts = async (req, res, next) => {
     const users = await User.find({ recoveryEmail: req.query.recoveryEmail }, { password: 0 })
 
     res.status(200).json({ message: "Users fetched successfully", users })
 };
 
+// get profile data for another user
 const GetProfileDataForAnotherUser = async (req, res, next) => {
     const user = await User.findById(req.query.id, { password: 0 })
 
@@ -107,6 +115,8 @@ const GetProfileDataForAnotherUser = async (req, res, next) => {
 
     res.status(200).json({ message: "User fetched successfully", user })
 };
+
+// reset password
 const resetPassword = async (req, res, next) => {
     // destructure user email and new password and otp from body
     const { email, otp, newPassword } = req.body
@@ -133,34 +143,8 @@ const resetPassword = async (req, res, next) => {
         { new: true }).select("-password");
     res.status(200).json({ message: "password reset successfully", updatedUser });
 }
-// const forgetPassword = async (req, res, next) => {
 
-//     // check if user exists
-//     const user = await User.findOne({ email })
-
-//     // generate otp
-//     const otp = Math.floor(Math.random() * 1000000 + 1);
-//     // send otp to email
-//     const isEmailSend = await sendEmailService(
-//         {
-//             to: email,
-//             subject: "reset password",
-//             htmlMessage: resetPasswordTemplate(user.firstName, otp),
-//         }
-//     );
-//     // if email not sent return error
-//     if (isEmailSend.rejected.length) {
-//         return res.status(400).json({ message: "Email not sent" });
-//     }
-//     // hash otp and save it in DB
-//     const hashedotp = hashSync(`${otp}`, 10);
-//     user.otp = hashedotp
-//     // set expired time for otp 10 minutes
-//     user.expiredotp = Date.now() + 10 * 60 * 1000
-//     user.save()
-//     res.status(200).json({ message: "check your email for reset password" });
-// }
-
+// forget password
 const forgetPassword = async (req, res, next) => {
     // destructure user email from body
     const { email } = req.body
@@ -195,7 +179,7 @@ const forgetPassword = async (req, res, next) => {
     res.status(200).json({ message: "check your email for reset password" });
 }
 
-
+// export modules
 export {
     signup,
     signin,

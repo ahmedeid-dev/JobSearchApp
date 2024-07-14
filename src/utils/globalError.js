@@ -1,5 +1,6 @@
 import appError from './appError.js';
 
+// catchError middleware function for handling errors
 function catchError(callback) {
     return (req, res, next) => {
         callback(req, res, next)
@@ -7,4 +8,5 @@ function catchError(callback) {
     }
 }
 
+// catchError middleware
 export default catchError

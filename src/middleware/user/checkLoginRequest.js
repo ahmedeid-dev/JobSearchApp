@@ -2,6 +2,7 @@ import User from "../../database/model/userCollection/user.model.js"
 import appError from './../../utils/appError.js';
 import bcrypt,{ compareSync } from 'bcrypt';
 
+// check login request
 const checkLoginRequest = async (req, res, next) => {
     const user = await User.findOne(
         {
@@ -17,6 +18,8 @@ const checkLoginRequest = async (req, res, next) => {
     if (!match) return next(new appError("Invalid credentials", 401))
     next()
 }
+
+// export middlewares
 export {
     checkLoginRequest
 }

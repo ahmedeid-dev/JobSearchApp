@@ -1,11 +1,11 @@
 import appError from "../utils/appError.js";
 
+// validate middleware 
 const validate = (schema) => {
     return (req, res, next) => {
         const { error } = schema.validate(
-            // req.body
-            { ...req.body, ...req.query, ...req.params }
-            , { abortEarly: false });
+            { ...req.body, ...req.query, ...req.params },
+            { abortEarly: false });
         if (error) {
             const errorArray = error?.details?.map(err => err.message = err.message.replace(/['"]+/g, ''));
             return next(new appError(errorArray, 400));
@@ -14,4 +14,5 @@ const validate = (schema) => {
     }
 }
 
+// export middleware
 export default validate

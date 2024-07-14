@@ -1,5 +1,6 @@
 import { model, Schema } from "mongoose";
 
+// schema for user collection
 const schema = Schema({
     firstName: {
         type: String,
@@ -49,6 +50,8 @@ const schema = Schema({
     versionKey: false
 });
 
+// model for user collection
 const User = model("User", schema);
 
+// exporting model
 export default User;

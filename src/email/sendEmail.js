@@ -1,5 +1,6 @@
 import nodemailer from "nodemailer";
 
+// send email service with nodemailer
 export const sendEmailService = async (
     { to,
         subject = "jop search app",

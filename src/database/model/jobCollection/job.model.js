@@ -1,5 +1,6 @@
 import { model, Schema, Types } from "mongoose";
 
+// schema for job collection
 const schema = Schema({
     jobTitle: {
         type: String,
@@ -27,5 +28,8 @@ const schema = Schema({
     }
 })
 
+// model for job collection
 const Job = model("Job", schema);
+
+// exporting model
 export default Job;

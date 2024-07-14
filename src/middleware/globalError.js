@@ -1,3 +1,5 @@
+
+// global error middleware
 const globalError = (err, req, res, next) => {
     res.status(err.statusCode || 500).json({
         success: false,
@@ -6,4 +8,5 @@ const globalError = (err, req, res, next) => {
     })
 }
 
+// export middlewares
 export default globalError

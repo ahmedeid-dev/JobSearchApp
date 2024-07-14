@@ -1,18 +1,21 @@
 process.on('uncaughtException', (error) => { console.log("uncaughtException Error Occured", error) })
-import express from 'express'
-import appError from './appError.js';
-import jobRouter from "../module/job/job.routes.js";
-import connection from "../database/dbConnection.js";
+import companyRouter from "../module/company/company.routes.js";
 import userRouter from "../module/user/user.routes.js";
 import globalError from "../middleware/globalError.js";
-import companyRouter from "../module/company/company.routes.js";
+import jobRouter from "../module/job/job.routes.js";
+import connection from "../database/dbConnection.js";
+import appError from './appError.js';
 import bodyParser from 'body-parser';
+import express from 'express'
 import dotenv from 'dotenv';
+
+// bootstrap function for starting the server
 const bootstrap = async () => {
     dotenv.config();
     const port = process.env.PORT || 3000;
     const app = express()
     app.use(express.json())
+
     // Middleware
     app.use(bodyParser.json());
     app.use(bodyParser.urlencoded({ extended: true }));
@@ -32,4 +35,5 @@ const bootstrap = async () => {
     app.listen(port, () => console.log(`Example app listening on port ${port}!`))
 }
 
+// export bootstrap function
 export default bootstrap

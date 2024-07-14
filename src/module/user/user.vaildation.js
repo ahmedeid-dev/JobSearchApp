@@ -1,5 +1,6 @@
 import joi from 'joi';
 
+// user signup validation schema
 const userSignupValidation = joi.object({
     firstName: joi
         .string()
@@ -66,6 +67,7 @@ const userSignupValidation = joi.object({
         })
 })
 
+// user login validation schema
 const userLoginValidation = joi.object({
 
     email: joi
@@ -91,6 +93,8 @@ const userLoginValidation = joi.object({
             "string.empty": "Password is required",
         }),
 })
+
+// user update validation schema
 const userUpdateValidation = joi.object({
     id: joi
         .string()
@@ -155,6 +159,7 @@ const userUpdateValidation = joi.object({
         })
 })
 
+// user id validation schema
 const userIdValidation = joi.object({
     id: joi
         .string()
@@ -165,6 +170,8 @@ const userIdValidation = joi.object({
             "string.empty": "Id is required",
         }),
 })
+
+// user recovery email validation schema
 const userRecoveryEmailValidation = joi.object({
     recoveryEmail
         : joi
@@ -180,6 +187,7 @@ const userRecoveryEmailValidation = joi.object({
             }),
 })
 
+// user password validation schema
 const userPasswordValidation = joi.object({
     password: joi
         .string()
@@ -192,6 +200,8 @@ const userPasswordValidation = joi.object({
             "string.empty": "Password is required",
         }),
 })
+
+// user forget password validation schema
 const forgetPasswordSchema = joi.object({
     email: joi.string().email(),
     mobile: joi
@@ -217,7 +227,7 @@ const forgetPasswordSchema = joi.object({
             }),
 })
 
-
+// user reset password validation schema
 const resetPasswordSchema = joi.object({
     newPassword: joi
         .string()
@@ -241,6 +251,7 @@ const resetPasswordSchema = joi.object({
         }),
 })
 
+// exporting user validation schemas
 export {
     userIdValidation,
     userLoginValidation,

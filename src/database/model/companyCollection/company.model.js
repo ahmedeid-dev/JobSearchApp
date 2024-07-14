@@ -1,5 +1,6 @@
 import { model, Schema, Types, version } from "mongoose";
 
+// schema for company collection
 const schema = Schema({
     companyName: {
         type: String,
@@ -27,5 +28,8 @@ const schema = Schema({
     versionKey: false
 })
 
+// model for company collection
 const Company = model("Company", schema);
+
+// exporting model
 export default Company;
