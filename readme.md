@@ -10,7 +10,8 @@
 
 6. Wrote comments before each API describes the steps of the API.
 
-7. any console.log() Removed before sending your exam except the **app. listen** and **dbConnection** logs and **Exceptions**.
+7. any console.log() Removed before sending your exam except 
+    the **app. listen** and **dbConnection** logs and **Exceptions** .
 
 8. Wrote a descriptive JSDoc before each API or function.
 
